@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "944142993651",
+    "project_id": "businexa",
+    "storage_bucket": "businexa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944142993651:android:a1fbb67e7d3c28635d0f86",
+        "android_client_info": {
+          "package_name": "com.example.businexa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2RWmu1GtvE_flGHyZjTFBJ1WLVBGL0NE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
