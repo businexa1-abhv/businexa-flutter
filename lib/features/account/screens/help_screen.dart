@@ -98,10 +98,10 @@ class HelpScreen extends StatelessWidget {
               // Still Need Help
               Container(
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryColor.withOpacity(0.1),
+                  color: AppTheme.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: AppTheme.primaryColor.withOpacity(0.3),
+                    color: AppTheme.primaryColor.withValues(alpha: 0.3),
                   ),
                 ),
                 padding: const EdgeInsets.all(20),
@@ -194,8 +194,6 @@ class _FAQItem extends StatefulWidget {
 }
 
 class _FAQItemState extends State<_FAQItem> {
-  final bool _isExpanded = false;
-
   @override
   Widget build(BuildContext context) {
     return Card(

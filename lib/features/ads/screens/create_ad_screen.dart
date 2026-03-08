@@ -7,7 +7,6 @@ import 'dart:io';
 import '../../../providers/ad_provider.dart';
 import '../../../providers/storage_provider.dart';
 import '../../../providers/auth_provider.dart';
-import '../../../models/advertisement_model.dart';
 import '../../../core/utils/validators.dart';
 import '../../../core/utils/theme.dart';
 import '../../../core/utils/constants.dart';
@@ -152,7 +151,6 @@ class _CreateAdScreenState extends ConsumerState<CreateAdScreen> {
       // Create advertisement
       final adNotifier = ref.read(adListProvider.notifier);
 
-      final adId = DateTime.now().millisecondsSinceEpoch.toString();
       final adTitle = _titleController.text;
       final adDesc = _descriptionController.text;
       final adCategory = _categoryController.text;
@@ -185,13 +183,6 @@ class _CreateAdScreenState extends ConsumerState<CreateAdScreen> {
         setState(() => _isSubmitting = false);
       }
     }
-  }
-
-  String _generateSlug(String title) {
-    return title
-        .toLowerCase()
-        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
-        .replaceAll(RegExp(r'^-+|-+$'), '');
   }
 
   @override
@@ -384,7 +375,7 @@ class _CreateAdScreenState extends ConsumerState<CreateAdScreen> {
                     color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppTheme.primaryColor.withOpacity(0.3),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.3),
                       width: 2,
                     ),
                   ),
@@ -396,7 +387,7 @@ class _CreateAdScreenState extends ConsumerState<CreateAdScreen> {
                         Icon(
                           Icons.image,
                           size: 64,
-                          color: AppTheme.primaryColor.withOpacity(0.5),
+                          color: AppTheme.primaryColor.withValues(alpha: 0.5),
                         ),
                         const SizedBox(height: 16),
                         Text(

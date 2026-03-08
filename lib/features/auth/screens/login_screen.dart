@@ -47,7 +47,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     try {
       // Call auth provider to send OTP
-      final messenger = ScaffoldMessenger.of(context);
       final authNotifier = ref.read(authStateProvider.notifier);
 
       await authNotifier.sendOTP(_phoneController.text);

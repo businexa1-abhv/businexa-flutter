@@ -119,8 +119,7 @@ final goRouter = GoRouter(
       path: Routes.editAd,
       name: 'editAd',
       builder: (context, state) {
-        final adId = state.pathParameters['id'];
-        return const Placeholder(); // Replace with EditAdScreen(adId: adId)
+        return const Placeholder(); // Replace with EditAdScreen(adId: state.pathParameters['id'])
       },
     ),
 
@@ -138,8 +137,7 @@ final goRouter = GoRouter(
       path: Routes.adDetail,
       name: 'adDetail',
       builder: (context, state) {
-        final adId = state.pathParameters['id'];
-        return const Placeholder(); // Replace with AdDetailScreen(adId: adId)
+        return const Placeholder(); // Replace with AdDetailScreen(adId: state.pathParameters['id'])
       },
     ),
 

@@ -46,6 +46,7 @@ class MyAdsScreen extends ConsumerWidget {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
+                  // ignore: unused_result
                   ref.refresh(adListProvider);
                 },
                 child: const Text('Retry'),
@@ -62,7 +63,8 @@ class MyAdsScreen extends ConsumerWidget {
                   Icon(
                     Icons.image,
                     size: 80,
-                    color: Theme.of(context).primaryColor.withOpacity(0.5),
+                    color:
+                        Theme.of(context).primaryColor.withValues(alpha: 0.5),
                   ),
                   const SizedBox(height: 24),
                   Text(
@@ -213,7 +215,8 @@ class _AdCard extends StatelessWidget {
                   children: [
                     Chip(
                       label: Text(ad.category),
-                      backgroundColor: AppTheme.primaryColor.withOpacity(0.1),
+                      backgroundColor:
+                          AppTheme.primaryColor.withValues(alpha: 0.1),
                       labelStyle: const TextStyle(
                         color: AppTheme.primaryColor,
                       ),

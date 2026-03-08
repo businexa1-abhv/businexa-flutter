@@ -129,7 +129,7 @@ class AdCard extends StatelessWidget {
                       label: Text(category!),
                       labelStyle: Theme.of(context).textTheme.labelSmall,
                       backgroundColor:
-                          Theme.of(context).primaryColor.withOpacity(0.1),
+                          Theme.of(context).primaryColor.withValues(alpha: 0.1),
                       side: BorderSide.none,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 0),

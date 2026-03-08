@@ -40,104 +40,107 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
     final currentUser = ref.watch(currentUserProvider);
 
     return currentUser.when(
-      loading: () => const Scaffold(
-        body: LoadingIndicator(),
-      ),
-      error: (error, st) => Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error_outline, size: 64, color: Colors.red),
-              const SizedBox(height: 16),
-              const Text('Failed to load user data'),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  ref.refresh(currentUserProvider);
-                },
-                child: const Text('Retry'),
+        loading: () => const Scaffold(
+              body: LoadingIndicator(),
+            ),
+        error: (error, st) => Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.error_outline,
+                        size: 64, color: Colors.red),
+                    const SizedBox(height: 16),
+                    const Text('Failed to load user data'),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        // ignore: unused_result
+                        ref.refresh(currentUserProvider);
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
-      data: (user) {
-        if (user == null) {
+            ),
+        data: (user) {
+          if (user == null) {
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.error_outline,
+                        size: 64, color: Colors.red),
+                    const SizedBox(height: 16),
+                    const Text('User data not available'),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        // ignore: unused_result
+                        ref.refresh(currentUserProvider);
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
           return Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                  const SizedBox(height: 16),
-                  const Text('User data not available'),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      ref.refresh(currentUserProvider);
-                    },
-                    child: const Text('Retry'),
+            appBar: AppHeader(
+              title: 'Dashboard',
+              showBackButton: false,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () async {
+                    final authNotifier = ref.read(authStateProvider.notifier);
+                    await authNotifier.logout();
+                    if (context.mounted) {
+                      context.go('/login');
+                    }
+                  },
+                ),
+              ],
+              bottom: TabBar(
+                controller: _tabController,
+                tabs: const [
+                  Tab(
+                    icon: Icon(Icons.list_alt),
+                    text: 'My Ads',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.card_giftcard),
+                    text: 'Subscription',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.qr_code_2),
+                    text: 'QR Codes',
                   ),
                 ],
               ),
             ),
-          );
-        }
-        return Scaffold(
-        appBar: AppHeader(
-          title: 'Dashboard',
-          showBackButton: false,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () async {
-                final authNotifier = ref.read(authStateProvider.notifier);
-                await authNotifier.logout();
-                if (context.mounted) {
-                  context.go('/login');
-                }
-              },
+            body: TabBarView(
+              controller: _tabController,
+              children: [
+                // Tab 1: My Ads
+                _AdsTab(),
+                // Tab 2: Subscription
+                _SubscriptionTab(user: user),
+                // Tab 3: QR Codes
+                _QRCodesTab(),
+              ],
             ),
-          ],
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: const [
-              Tab(
-                icon: Icon(Icons.list_alt),
-                text: 'My Ads',
-              ),
-              Tab(
-                icon: Icon(Icons.card_giftcard),
-                text: 'Subscription',
-              ),
-              Tab(
-                icon: Icon(Icons.qr_code_2),
-                text: 'QR Codes',
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            // Tab 1: My Ads
-            _AdsTab(),
-            // Tab 2: Subscription
-            _SubscriptionTab(user: user),
-            // Tab 3: QR Codes
-            _QRCodesTab(),
-          ],
-        ),
-        floatingActionButton: _tabController.index == 0
-            ? FloatingActionButton(
-                onPressed: () => context.push('/create-ad'),
-                child: const Icon(Icons.add),
-              )
-            : null,
-      );
-      }
-    );
+            floatingActionButton: _tabController.index == 0
+                ? FloatingActionButton(
+                    onPressed: () => context.push('/create-ad'),
+                    child: const Icon(Icons.add),
+                  )
+                : null,
+          );
+        });
   }
 }
 
@@ -204,8 +207,9 @@ class _AdsTab extends ConsumerWidget {
                         Icon(
                           Icons.image,
                           size: 48,
-                          color:
-                              Theme.of(context).primaryColor.withOpacity(0.5),
+                          color: Theme.of(context)
+                              .primaryColor
+                              .withValues(alpha: 0.5),
                         ),
                         const SizedBox(height: 16),
                         Text(
@@ -322,8 +326,8 @@ class _SubscriptionTab extends ConsumerWidget {
                           style: const TextStyle(color: Colors.white),
                         ),
                         backgroundColor: subscriptionActive
-                            ? Colors.green.withOpacity(0.7)
-                            : Colors.red.withOpacity(0.7),
+                            ? Colors.green.withValues(alpha: 0.7)
+                            : Colors.red.withValues(alpha: 0.7),
                       ),
                     ],
                   ),
@@ -412,7 +416,7 @@ class _BenefitItem extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: AppTheme.primaryColor.withOpacity(0.1),
+              color: AppTheme.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -468,10 +472,10 @@ class _QRCodesTab extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.1),
+                color: AppTheme.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: AppTheme.primaryColor.withOpacity(0.3),
+                  color: AppTheme.primaryColor.withValues(alpha: 0.3),
                 ),
               ),
               child: Column(

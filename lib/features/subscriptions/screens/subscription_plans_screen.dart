@@ -159,7 +159,7 @@ class SubscriptionPlansScreen extends ConsumerWidget {
                     if (plan['savings'] != null)
                       Chip(
                         label: Text('Save ${plan['savings']}%'),
-                        backgroundColor: Colors.green.withOpacity(0.2),
+                        backgroundColor: Colors.green.withValues(alpha: 0.2),
                         labelStyle: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
@@ -395,8 +395,6 @@ class _FAQItem extends StatefulWidget {
 }
 
 class _FAQItemState extends State<_FAQItem> {
-  final bool _isExpanded = false;
-
   @override
   Widget build(BuildContext context) {
     return Card(

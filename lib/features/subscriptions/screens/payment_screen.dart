@@ -179,7 +179,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
+                      color: Colors.red.withValues(alpha: 0.1),
                       border: Border.all(color: Colors.red),
                       borderRadius: BorderRadius.circular(8),
                     ),

@@ -20,8 +20,6 @@ class PublicAdPage extends ConsumerStatefulWidget {
 }
 
 class _PublicAdPageState extends ConsumerState<PublicAdPage> {
-  final bool _isCopied = false;
-
   @override
   void initState() {
     super.initState();
@@ -105,7 +103,8 @@ class _PublicAdPageState extends ConsumerState<PublicAdPage> {
                       // Category
                       Chip(
                         label: const Text('Electronics'),
-                        backgroundColor: AppTheme.primaryColor.withOpacity(0.2),
+                        backgroundColor:
+                            AppTheme.primaryColor.withValues(alpha: 0.2),
                         labelStyle: const TextStyle(
                           color: AppTheme.primaryColor,
                           fontWeight: FontWeight.bold,
@@ -116,7 +115,7 @@ class _PublicAdPageState extends ConsumerState<PublicAdPage> {
                       // Price
                       Container(
                         decoration: BoxDecoration(
-                          color: AppTheme.primaryColor.withOpacity(0.1),
+                          color: AppTheme.primaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.symmetric(
